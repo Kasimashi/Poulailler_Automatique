@@ -4,19 +4,22 @@
 
 //DEFINITION DES PORTS
 #define	PORT_PROJECTEUR	PD7
-#define	PORT_FIN_DE_COURSE_HAUT	PD2
-#define	PORT_FIN_DE_COURSE_BAS	PD3
-#define	TEMOIN_MOTEUR_MOUVEMENT	PD4
+#define	PORT_FIN_DE_COURSE_HAUT	PD2 //Port qui accepte les interruptions
+#define	PORT_FIN_DE_COURSE_BAS	PD3 //Port qui accepte les interruptions
+#define	TEMOIN_MOTEUR_MOUVEMENT	PD4 //LED de retour d'état du mouvement de la porte
+#define TEMOIN_ETAT_PORTE	PD5 //LED de retour d'état de la porte
 //MODE CAPTEUR DE LUMIERE
-#define SEUIL_CAPTEUR_PHOTORESISTANCE 300
-#define TAILLE_TABLEAU_MOY 10
-#define FREQ_MESURE 1000*20 //1sec
-#define PRISE_DE_DECISION_ALLUMAGE_LUMIERE 5
+#define SEUIL_CAPTEUR_PHOTORESISTANCE 300 //Seuil de déclanchement
+#define TAILLE_TABLEAU_MOY 10 // Nombre de valeur dans le tableau
+#define FREQ_MESURE 1000*20 // fréquence de mesure de l'intensité lumineuse : 20sec
+
 
 //MODE RTC
 
 //MODE COMMUM
-#define NB_C_HORLOGE_AVANT_OP 10
+#define PRISE_DE_DECISION_ALLUMAGE_LUMIERE 5 //Nombre de tick avant l'allumage du projecteur.
+#define NB_C_HORLOGE_AVANT_OP 10 //Nombre de tick avant l'opération (Nombre de tick total : ALLUMAGE + NB_C_HORLOGE_AVANT_OP
+#define DELAIS_TICK_MOUVEMENT 1000*20 //20 secondes //délais d'attente avant opération
 
 //Initialisation des variables
 //Capteur photosensible
@@ -34,8 +37,8 @@ void setup() {
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
 
-  attachInterrupt(digitalPinToInterrupt(PD2), FinDeCourseHaut, RISING); //Interuption capteur fin de course haut
-  attachInterrupt(digitalPinToInterrupt(PD3), FinDeCourseBas, RISING); //Interuption capteur fin de course bas
+  attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_HAUT), FinDeCourseHaut, RISING); //Interuption capteur fin de course haut
+  attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_BAS), FinDeCourseBas, RISING); //Interuption capteur fin de course bas
 
   Ouvrir(); //etat de la porte au départ.
 }
@@ -49,7 +52,7 @@ void loop() {
 				digitalWrite(PORT_PROJECTEUR,1); //On prévient les poules !
 			}
 			tick_changement_detat_jour++;
-			delay(1000*20);
+			delay(DELAIS_TICK_MOUVEMENT);
 			Serial.println(tick_changement_detat_jour);
 			if (tick_changement_detat_jour >= NB_C_HORLOGE_AVANT_OP  + PRISE_DE_DECISION_ALLUMAGE_LUMIERE)
 				{
@@ -68,7 +71,7 @@ void loop() {
 				digitalWrite(PORT_PROJECTEUR,1);
 			}
 			tick_changement_detat_nuit++;
-			delay(1000*20);
+			delay(DELAIS_TICK_MOUVEMENT);
 			Serial.println(tick_changement_detat_nuit);
 			if (tick_changement_detat_nuit >= NB_C_HORLOGE_AVANT_OP +PRISE_DE_DECISION_ALLUMAGE_LUMIERE)
 			{
@@ -93,7 +96,7 @@ void Ouvrir(){
 	Serial.println("OUVEEEEEEEEEERT !!!");
 	digitalWrite(TEMOIN_MOTEUR_MOUVEMENT,0);
 	Ouvert = 1;
-	digitalWrite(PD5,Ouvert);
+	digitalWrite(TEMOIN_ETAT_PORTE,Ouvert);
 }
 
 void Fermer(){
@@ -105,7 +108,7 @@ void Fermer(){
 	Serial.println("FERMEEEEEEEEE !!!!!!");
 	digitalWrite(TEMOIN_MOTEUR_MOUVEMENT,0);
 	Ouvert = 0;
-	digitalWrite(PD5,Ouvert);
+	digitalWrite(TEMOIN_ETAT_PORTE,Ouvert);
 }
 
 void InterruptTimer2() { // debut de la fonction d'interruption Timer2
@@ -121,8 +124,6 @@ void InterruptTimer2() { // debut de la fonction d'interruption Timer2
 			Serial.println(moyenne);
 
 	}
-
-
 }
 
 int moyenneTableau(int tableau[])
@@ -137,11 +138,11 @@ int moyenneTableau(int tableau[])
 }
 
 void FinDeCourseHaut(){
-	Serial.println("Capteur de fin de course haut atteint ! (Porte ouverte)");
+	Serial.println("Capteur de fin de course haut atteint ! (Porte ouverte)"); //DEBUG
 
 }
 
 void FinDeCourseBas(){
-	Serial.println("Capteur de fin de course bas atteint ! (Porte fermée)");
+	Serial.println("Capteur de fin de course bas atteint ! (Porte fermée)"); //DEBUG
 
 }
