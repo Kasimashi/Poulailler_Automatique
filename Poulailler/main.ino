@@ -9,7 +9,7 @@
 #define	TEMOIN_MOTEUR_MOUVEMENT	PD4 //LED de retour d'état du mouvement de la porte
 #define TEMOIN_ETAT_PORTE	PD5 //LED de retour d'état de la porte
 //MODE CAPTEUR DE LUMIERE
-#define SEUIL_CAPTEUR_PHOTORESISTANCE 300 //Seuil de déclanchement
+#define SEUIL_CAPTEUR_PHOTORESISTANCE 300 //Seuil de déclenchement
 #define TAILLE_TABLEAU_MOY 10 // Nombre de valeur dans le tableau
 #define FREQ_MESURE 1000*20 // fréquence de mesure de l'intensité lumineuse : 20sec
 
