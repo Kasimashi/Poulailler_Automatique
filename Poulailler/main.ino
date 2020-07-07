@@ -1,13 +1,19 @@
 
+/*********************************/
+/* L'alimentation se fait en 3.3V et 5V. */
+/* 
+/*********************************/
 #include <MsTimer2.h> // inclusion de la librairie Timer2
 #include <DS1307RTC.h> //inclusiondumodule RTC
 
 //DEFINITION DES PORTS
-#define	PORT_PROJECTEUR	PD7
+
 #define	PORT_FIN_DE_COURSE_HAUT	PD2 //Port qui accepte les interruptions
 #define	PORT_FIN_DE_COURSE_BAS	PD3 //Port qui accepte les interruptions
 #define	TEMOIN_MOTEUR_MOUVEMENT	PD4 //LED de retour d'état du mouvement de la porte
 #define TEMOIN_ETAT_PORTE	PD5 //LED de retour d'état de la porte
+#define	PORT_PROJECTEUR	PD7 //Port qui est branché au niveau de la LED projecteur.
+#define PORT_LECTURE_LUMINOSITE A0 //Port de lecture de l'intensité lumineuse
 //MODE CAPTEUR DE LUMIERE
 #define SEUIL_CAPTEUR_PHOTORESISTANCE 300 //Seuil de déclenchement
 #define TAILLE_TABLEAU_MOY 10 // Nombre de valeur dans le tableau
@@ -115,7 +121,7 @@ void InterruptTimer2() { // debut de la fonction d'interruption Timer2
 
 	//Lecture de la valeur de luminosité.
 	Serial.println("Mesure en cours ... !");
-	unsigned int read = analogRead(A0);
+	unsigned int read = analogRead(PORT_LECTURE_LUMINOSITE);
 	tableau_intensite[index_intensite%10] = read;
 	index_intensite++;
 	nb_mesures++;
