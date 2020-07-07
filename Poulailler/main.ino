@@ -8,9 +8,9 @@
 
 //DEFINITION DES PORTS
 
-#define	PORT_FIN_DE_COURSE_HAUT	PD2 //Port qui accepte les interruptions
-#define	PORT_FIN_DE_COURSE_BAS	PD3 //Port qui accepte les interruptions
-#define	TEMOIN_MOTEUR_MOUVEMENT	PD4 //LED de retour d'état du mouvement de la porte
+#define	PORT_FIN_DE_COURSE_HAUT	PD8 //Port qui accepte les interruptions
+#define	PORT_FIN_DE_COURSE_BAS	PD9 //Port qui accepte les interruptions
+#define	TEMOIN_MOTEUR_MOUVEMENT	PD10 //LED de retour d'état du mouvement de la porte
 #define TEMOIN_ETAT_PORTE	PD5 //LED de retour d'état de la porte
 #define	PORT_PROJECTEUR	PD7 //Port qui est branché au niveau de la LED projecteur.
 #define PORT_LECTURE_LUMINOSITE A0 //Port de lecture de l'intensité lumineuse
