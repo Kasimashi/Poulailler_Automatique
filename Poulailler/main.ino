@@ -3,8 +3,14 @@
 /* L'alimentation se fait en 3.3V et 5V. */
 /* 
 /*********************************/
+
+// Les connections suivantes doivent être effectuées DS1302.
+// DS1302 patte RST  -> Arduino Digital 2
+// DS1302 patte DATA -> Arduino Digital 3
+// DS1302 patte CLK  -> Arduino Digital 4
+
 #include <MsTimer2.h> // inclusion de la librairie Timer2
-#include <DS1307RTC.h> //inclusiondumodule RTC
+#include <DS1302.h>
 
 //DEFINITION DES PORTS
 
@@ -36,19 +42,39 @@ int moyenne;
 //Variables commune.
 int Ouvert; //Etat de la porte
 
+// Init DS1302
+DS1302 rtc(2, 3, 4);
+
+// Init structure Time-data
+Time t;
+
 // the setup routine runs once when you press reset:
 void setup() {
   MsTimer2::set(FREQ_MESURE, InterruptTimer2); // Timer2 Interne Arduino : période 5000ms
   MsTimer2::start(); // active Timer 2
+
+  // Positionnement horloge a run-mode et desactive protection en ecriture
+  rtc.halt(false);
+  rtc.writeProtect(false);
+
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
 
   attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_HAUT), FinDeCourseHaut, RISING); //Interuption capteur fin de course haut
   attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_BAS), FinDeCourseBas, RISING); //Interuption capteur fin de course bas
 
+  setup_rtc();
+
   Ouvrir(); //etat de la porte au départ.
 }
 
+void setup_rtc(){
+// Initialisation de l'horloge
+  // A mettre a jour avec les bones valeurs pour initialiser l horloge RTC DS1302
+  rtc.setDOW(FRIDAY);        // Jour a FRIDAY
+  rtc.setTime(19, 10, 0);    // Heure a 19:10:00 (format sur 24 heure)
+  rtc.setDate(3, 6, 2016);   // Date  au 3 juin 2016
+}
 // the loop routine runs over and over again forever:
 void loop() {
 		/** OUVERTURE DE LA PORTE **/
@@ -91,6 +117,35 @@ void loop() {
 			tick_changement_detat_nuit = 0; //On recommence.
 		}
 
+		/**** AFFICHAGE DE l'HEURE **/
+	  // recup donnees DS1302
+	  t = rtc.getTime();
+
+	  // Ecriture date sur console serie
+	  Serial.print("Jour : ");
+	  Serial.print(t.date, DEC);
+	  Serial.print(" - Mois : ");
+	  Serial.print(rtc.getMonthStr());
+	  Serial.print(" - Annee : ");
+	  Serial.print(t.year, DEC);
+	  Serial.println(" -");
+
+	  // Ecriture heure sur console serie
+	  Serial.print("C est le ");
+	  Serial.print(t.dow, DEC);
+	  Serial.print(" ieme jour de la semaine (avec lundi le premier), et il est ");
+	  Serial.print(t.hour, DEC);
+	  Serial.print(" heures, ");
+	  Serial.print(t.min, DEC);
+	  Serial.print(" minutes ");
+	  Serial.print(t.sec, DEC);
+	  Serial.println(" secondes.");
+
+	  // Affichage d un separateur
+	  Serial.println("------------------------------------------");
+
+	  // Attente d une seconde avant lecture suivante :)
+	  delay (1000);
 }
 
 void Ouvrir(){
