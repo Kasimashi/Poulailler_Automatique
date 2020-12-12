@@ -6,8 +6,9 @@
 // DS1302 patte DATA -> Arduino Digital 3
 // DS1302 patte CLK  -> Arduino Digital 4
 
-#include "MsTimer2.h" // inclusion de la librairie Timer2
-#include "DS1302.h>
+#include <Arduino.h>
+#include "Timer2.h" // inclusion de la librairie Timer2
+#include "RTCDS1302.h"
 #include "LiquidCrystal.h"
 #include "Poulailler.h"
 

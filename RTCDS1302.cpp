@@ -19,7 +19,7 @@
   The license applies to all part of the library including the 
   examples and tools supplied with the library.
 */
-#include "DS1302.h"
+#include "RTCDS1302.h"
 
 #define REG_SEC		0
 #define REG_MIN		1

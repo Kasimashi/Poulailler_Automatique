@@ -10,7 +10,10 @@ mymkdir = mkdir -p $1
 endif
 
 PROJECT_OBJS = \
+	project/LiquidCrystal.cpp.o \
 	project/Poulailler.cpp.o \
+	project/RTCDS1302.cpp.o \
+	project/Timer2.cpp.o \
 
 PLATFORM_CORE_OBJS = \
 	core/abi.cpp.o \
@@ -42,8 +45,6 @@ PLATFORM_CORE_OBJS = \
 PLATFORM_VARIANT_OBJS = \
 
 LIBRARIES_OBJS = \
-	libraries/RTCLib_by_NeiroN/1.5.4/RTClib.cpp.o \
-	libraries/MsTimer2/1.1.0/MsTimer2.cpp.o \
 
 TARGETS = \
 	Poulailler.hex \
@@ -65,18 +66,42 @@ clean:
 size:
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-size" -A "./Poulailler.elf"
 
+project/LiquidCrystal.cpp.o: ../../LiquidCrystal.cpp project/LiquidCrystal.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
+
+project/LiquidCrystal.cpp.d: ;
+
+-include project/LiquidCrystal.cpp.d 
+
 project/Poulailler.cpp.o: ../../Poulailler.cpp project/Poulailler.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 
 project/Poulailler.cpp.d: ;
 
 -include project/Poulailler.cpp.d 
 
+project/RTCDS1302.cpp.o: ../../RTCDS1302.cpp project/RTCDS1302.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
+
+project/RTCDS1302.cpp.d: ;
+
+-include project/RTCDS1302.cpp.d 
+
+project/Timer2.cpp.o: ../../Timer2.cpp project/Timer2.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
+
+project/Timer2.cpp.d: ;
+
+-include project/Timer2.cpp.d 
+
 
 core/abi.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/abi.cpp core/abi.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/abi.cpp.d: ;
@@ -85,7 +110,7 @@ core/abi.cpp.d: ;
 
 core/CDC.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/CDC.cpp core/CDC.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/CDC.cpp.d: ;
@@ -94,7 +119,7 @@ core/CDC.cpp.d: ;
 
 core/HardwareSerial.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial.cpp core/HardwareSerial.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial.cpp.d: ;
@@ -103,7 +128,7 @@ core/HardwareSerial.cpp.d: ;
 
 core/HardwareSerial0.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial0.cpp core/HardwareSerial0.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial0.cpp.d: ;
@@ -112,7 +137,7 @@ core/HardwareSerial0.cpp.d: ;
 
 core/HardwareSerial1.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial1.cpp core/HardwareSerial1.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial1.cpp.d: ;
@@ -121,7 +146,7 @@ core/HardwareSerial1.cpp.d: ;
 
 core/HardwareSerial2.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial2.cpp core/HardwareSerial2.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial2.cpp.d: ;
@@ -130,7 +155,7 @@ core/HardwareSerial2.cpp.d: ;
 
 core/HardwareSerial3.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial3.cpp core/HardwareSerial3.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial3.cpp.d: ;
@@ -139,7 +164,7 @@ core/HardwareSerial3.cpp.d: ;
 
 core/hooks.c.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/hooks.c core/hooks.c.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/hooks.c.d: ;
@@ -148,7 +173,7 @@ core/hooks.c.d: ;
 
 core/IPAddress.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/IPAddress.cpp core/IPAddress.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/IPAddress.cpp.d: ;
@@ -157,7 +182,7 @@ core/IPAddress.cpp.d: ;
 
 core/main.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/main.cpp core/main.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/main.cpp.d: ;
@@ -166,7 +191,7 @@ core/main.cpp.d: ;
 
 core/new.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/new.cpp core/new.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/new.cpp.d: ;
@@ -175,7 +200,7 @@ core/new.cpp.d: ;
 
 core/PluggableUSB.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/PluggableUSB.cpp core/PluggableUSB.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/PluggableUSB.cpp.d: ;
@@ -184,7 +209,7 @@ core/PluggableUSB.cpp.d: ;
 
 core/Print.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/Print.cpp core/Print.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/Print.cpp.d: ;
@@ -193,7 +218,7 @@ core/Print.cpp.d: ;
 
 core/Stream.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/Stream.cpp core/Stream.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/Stream.cpp.d: ;
@@ -202,7 +227,7 @@ core/Stream.cpp.d: ;
 
 core/Tone.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/Tone.cpp core/Tone.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/Tone.cpp.d: ;
@@ -211,7 +236,7 @@ core/Tone.cpp.d: ;
 
 core/USBCore.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/USBCore.cpp core/USBCore.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/USBCore.cpp.d: ;
@@ -220,7 +245,7 @@ core/USBCore.cpp.d: ;
 
 core/WInterrupts.c.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/WInterrupts.c core/WInterrupts.c.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/WInterrupts.c.d: ;
@@ -229,7 +254,7 @@ core/WInterrupts.c.d: ;
 
 core/wiring.c.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring.c core/wiring.c.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring.c.d: ;
@@ -238,7 +263,7 @@ core/wiring.c.d: ;
 
 core/wiring_analog.c.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_analog.c core/wiring_analog.c.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring_analog.c.d: ;
@@ -247,7 +272,7 @@ core/wiring_analog.c.d: ;
 
 core/wiring_digital.c.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_digital.c core/wiring_digital.c.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring_digital.c.d: ;
@@ -256,7 +281,7 @@ core/wiring_digital.c.d: ;
 
 core/wiring_pulse.c.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_pulse.c core/wiring_pulse.c.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring_pulse.c.d: ;
@@ -265,12 +290,12 @@ core/wiring_pulse.c.d: ;
 
 core/wiring_pulse.S.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_pulse.S
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -x assembler-with-cpp -flto -MMD -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -x assembler-with-cpp -flto -MMD -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/wiring_shift.c.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_shift.c core/wiring_shift.c.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring_shift.c.d: ;
@@ -279,7 +304,7 @@ core/wiring_shift.c.d: ;
 
 core/WMath.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/WMath.cpp core/WMath.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/WMath.cpp.d: ;
@@ -288,7 +313,7 @@ core/WMath.cpp.d: ;
 
 core/WString.cpp.o: C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/WString.cpp core/WString.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
+	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" "$<" -o "$@"
 	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/WString.cpp.d: ;
@@ -296,20 +321,4 @@ core/WString.cpp.d: ;
 -include core/WString.cpp.d
 
 
-
-libraries/RTCLib_by_NeiroN/1.5.4/RTClib.cpp.o: C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4/RTClib.cpp libraries/RTCLib_by_NeiroN/1.5.4/RTClib.cpp.d
-	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
-
-libraries/RTCLib_by_NeiroN/1.5.4/RTClib.cpp.d: ;
-
--include libraries/RTCLib_by_NeiroN/1.5.4/RTClib.cpp.d
-
-libraries/MsTimer2/1.1.0/MsTimer2.cpp.o: C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0/MsTimer2.cpp libraries/MsTimer2/1.1.0/MsTimer2.cpp.d
-	@$(call mymkdir,$(dir $@))
-	"C:/Users/Kasim/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_UNO -DARDUINO_ARCH_AVR   -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"C:/Users/Kasim/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/standard" -I"C:/Users/Kasim/.arduinocdt/libraries/RTCLib_by_NeiroN/1.5.4" -I"C:/Users/Kasim/.arduinocdt/libraries/MsTimer2/1.1.0" "$<" -o "$@"
-
-libraries/MsTimer2/1.1.0/MsTimer2.cpp.d: ;
-
--include libraries/MsTimer2/1.1.0/MsTimer2.cpp.d
 
