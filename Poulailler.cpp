@@ -1,25 +1,36 @@
 
-/*********************************/
 /* L'alimentation se fait en 3.3V et 5V. */
-/* 
-/*********************************/
 
 // Les connections suivantes doivent être effectuées DS1302.
 // DS1302 patte RST  -> Arduino Digital 2
 // DS1302 patte DATA -> Arduino Digital 3
 // DS1302 patte CLK  -> Arduino Digital 4
 
-#include <MsTimer2.h> // inclusion de la librairie Timer2
-#include <DS1302.h>
+#include "MsTimer2.h" // inclusion de la librairie Timer2
+#include "DS1302.h>
+#include "LiquidCrystal.h"
+#include "Poulailler.h"
 
 //DEFINITION DES PORTS
 
-#define	PORT_FIN_DE_COURSE_HAUT	PD8 //Port qui accepte les interruptions
-#define	PORT_FIN_DE_COURSE_BAS	PD9 //Port qui accepte les interruptions
-#define	TEMOIN_MOTEUR_MOUVEMENT	PD10 //LED de retour d'état du mouvement de la porte
+#define	PORT_FIN_DE_COURSE_HAUT	8 //Port qui accepte les interruptions
+#define	PORT_FIN_DE_COURSE_BAS	9 //Port qui accepte les interruptions
+#define	TEMOIN_MOTEUR_MOUVEMENT	10 //LED de retour d'état du mouvement de la porte
 #define TEMOIN_ETAT_PORTE	PD5 //LED de retour d'état de la porte
 #define	PORT_PROJECTEUR	PD7 //Port qui est branché au niveau de la LED projecteur.
 #define PORT_LECTURE_LUMINOSITE A0 //Port de lecture de l'intensité lumineuse
+
+// DS1302(uint8_t ce_pin, uint8_t data_pin, uint8_t sclk_pin)
+#define PORT_RTC_RST 2 //PD2
+#define PORT_RTC_DATA 3 //PD3
+#define PORT_RTC_SCLK 4 //PD4
+
+#define PORT_LCD_D7 PB5 //Port LCD D7 //D13
+#define PORT_LCD_D6 PB4 //Port LCD D6 //D12
+#define PORT_LCD_D5 PB3 //Port LCD D5 //D11
+#define PORT_LCD_D4 PB2 //Port LCD D4 //D10
+#define PORT_LCD_RS PB1 //Port LCD RS //D9
+#define PORT_LCD_ENABLE PB0 //Port LCD ENABLE //D8
 //MODE CAPTEUR DE LUMIERE
 #define SEUIL_CAPTEUR_PHOTORESISTANCE 300 //Seuil de déclenchement
 #define TAILLE_TABLEAU_MOY 10 // Nombre de valeur dans le tableau
@@ -43,10 +54,14 @@ int moyenne;
 int Ouvert; //Etat de la porte
 
 // Init DS1302
+
 DS1302 rtc(2, 3, 4);
 
 // Init structure Time-data
 Time t;
+
+// Init LiquidCrystal Port
+LiquidCrystal lcd(PORT_LCD_RS, PORT_LCD_ENABLE, PORT_LCD_D4, PORT_LCD_D5, PORT_LCD_D6, PORT_LCD_D7);
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -59,6 +74,11 @@ void setup() {
 
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
+
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("hello, world!");
 
   attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_HAUT), FinDeCourseHaut, RISING); //Interuption capteur fin de course haut
   attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_BAS), FinDeCourseBas, RISING); //Interuption capteur fin de course bas
