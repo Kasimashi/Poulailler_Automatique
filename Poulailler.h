@@ -15,13 +15,18 @@
 
 //add your function definitions for the project Poulailler here
 void setup();
-void setup_rtc();
+void setup_rtc(void);
+void setup_cmd(void);
 void Ouvrir();
 void Fermer();
 void InterruptTimer2();
 int moyenneTableau(int tableau[]);
-void FinDeCourseHaut();
-void FinDeCourseBas();
+void FinDeCourseHaut(void);
+void FinDeCourseBas(void);
+int Jour(int moyenne);
+void getHoursRTC(void);
+void Shell(void);
+int getMoyenne(void);
 
 
 
