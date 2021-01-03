@@ -40,10 +40,6 @@
 #define TAILLE_TABLEAU_MOY 10 // Nombre de valeur dans le tableau
 #define FREQ_MESURE 1000*20 // fréquence de mesure de l'intensité lumineuse : 20sec
 
-int daysInMonth[] = {31,28,31,30,31,30,31,31,30,31,30,31};
-#define SECONDS_FROM_1970_TO_2000 946684800
-//MODE RTC
-
 //MODE COMMUM
 #define PRISE_DE_DECISION_ALLUMAGE_LUMIERE 5 //Nombre de tick avant l'allumage du projecteur.
 #define NB_C_HORLOGE_AVANT_OP 10 //Nombre de tick avant l'opération (Nombre de tick total : ALLUMAGE + NB_C_HORLOGE_AVANT_OP
@@ -76,6 +72,9 @@ Command cmdPing;
 Command cmdMycommand;
 Command cmdEcho;
 Command cmdDate;
+Command cmdOpen;
+Command cmdClose;
+Command cmdMoy;
 Command cmdRm;
 Command cmdLs;
 Command cmdBoundless;
@@ -99,8 +98,8 @@ void setup() {
 
   setup_rtc();
 
-  attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_HAUT), FinDeCourseHaut, RISING); //Interuption capteur fin de course haut
-  attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_BAS), FinDeCourseBas, RISING); //Interuption capteur fin de course bas
+  attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_HAUT), IsrFinDeCourseHaut, RISING); //Interuption capteur fin de course haut
+  attachInterrupt(digitalPinToInterrupt(PORT_FIN_DE_COURSE_BAS), IsrFinDeCourseBas, RISING); //Interuption capteur fin de course bas
 
   setup_cmd();
 
@@ -128,6 +127,15 @@ void setup_cmd(void){
 
 	cmdDate = cli.addCmd("date");
 	cmdDate.setDescription("Get RTC of the system");
+
+	cmdOpen = cli.addCmd("open");
+	cmdOpen.setDescription("Open the gate");
+
+	cmdClose = cli.addCmd("close");
+	cmdClose.setDescription("Close the date");
+
+	cmdMoy = cli.addCmd("moy");
+	cmdMoy.setDescription("Get the lux value");
 
 	cmdRm = cli.addCmd("rm");
 	cmdRm.addPosArg("file");
@@ -166,7 +174,7 @@ void loop() {
 	Shell();
 	/** OUVERTURE DE LA PORTE **/
 	/**
-	 if (moyenne<SEUIL_CAPTEUR_PHOTORESISTANCE && !Ouvert){ //Le jour pointe le bout de son nez
+	 if (moyenne<SEUIL_CAPTEUR_PHOTORESISTANCE && !GetDayState){ //Le jour pointe le bout de son nez
 		//On prévient les poules de l'iminmence de l'ouverture de porte
 		if (!Ouvert && tick_changement_detat_jour >= PRISE_DE_DECISION_ALLUMAGE_LUMIERE){ //On allume la lumière 5 minutes plus tard après la detection
 			digitalWrite(PORT_PROJECTEUR,1); //On prévient les poules !
@@ -181,14 +189,14 @@ void loop() {
 				digitalWrite(PORT_PROJECTEUR,0);
 			}
 	}
-	if (moyenne>SEUIL_CAPTEUR_PHOTORESISTANCE && !Ouvert){ //Apparition d'un projecteur.
+	if (moyenne>SEUIL_CAPTEUR_PHOTORESISTANCE && !GetDayState){ //Apparition d'un projecteur.
 		digitalWrite(PORT_PROJECTEUR,0);
 		tick_changement_detat_jour = 0;
 	}
 	*/
 	/** FERMETURE DE LA PORTE **/
 	/**
-	if (moyenne>SEUIL_CAPTEUR_PHOTORESISTANCE && Ouvert){//Il commence à faire nuit
+	if (moyenne>SEUIL_CAPTEUR_PHOTORESISTANCE && GetDayState){//Il commence à faire nuit
 		if (Ouvert && tick_changement_detat_nuit >= PRISE_DE_DECISION_ALLUMAGE_LUMIERE){//On allume la lumière 5 minutes plus tard après la detection
 			digitalWrite(PORT_PROJECTEUR,1);
 		}
@@ -202,7 +210,7 @@ void loop() {
 			digitalWrite(PORT_PROJECTEUR,0);
 		}
 	}
-	if (moyenne<SEUIL_CAPTEUR_PHOTORESISTANCE && Ouvert){ // Apparition d'un nuage
+	if (moyenne<SEUIL_CAPTEUR_PHOTORESISTANCE && GetDayState){ // Apparition d'un nuage
 		digitalWrite(PORT_PROJECTEUR,0);
 		tick_changement_detat_nuit = 0; //On recommence.
 	}
@@ -264,7 +272,13 @@ void Shell(void){
 				Serial.println("Hi " + c.getArgument("o").getValue());
 			} else if (c == cmdDate) {
 				getHoursRTC();
-			} else if (c == cmdEcho) {
+			} else if (c == cmdOpen) {
+				Ouvrir();
+			} else if (c == cmdClose) {
+				Fermer();
+			} else if (c == cmdMoy) {
+				Serial.println(getMoyenne());
+			}else if (c == cmdEcho) {
 				Argument str = c.getArgument(0);
 				Serial.println(str.getValue());
 			} else if (c == cmdRm) {
@@ -320,11 +334,15 @@ void Fermer(){
 void InterruptTimer2() { // debut de la fonction d'interruption Timer2
 
 	//Lecture de la valeur de luminosité.
-	Serial.println("Mesure en cours ... !");
+	//Serial.println("Mesure en cours ... !");
 	unsigned int read = analogRead(PORT_LECTURE_LUMINOSITE);
 	tableau_intensite[index_intensite%10] = read;
 	index_intensite++;
 	nb_mesures++;
+	if (nb_mesures>TAILLE_TABLEAU_MOY){ //Si on a assez d'étantillons
+		moyenne = moyenneTableau(tableau_intensite); //On calcul la moyenne
+		//Serial.println(moyenne);
+	}
 }
 
 int moyenneTableau(int tableau[])
@@ -338,7 +356,7 @@ int moyenneTableau(int tableau[])
     return moyenne;
 }
 
-void FinDeCourseHaut(void){
+void IsrFinDeCourseHaut(void){
 	Serial.println("Capteur de fin de course haut atteint ! (Porte ouverte)"); //DEBUG
 	Serial.println("OUVEEEEEEEEEERT !!!");
 	digitalWrite(TEMOIN_MOTEUR_MOUVEMENT,0);
@@ -347,7 +365,7 @@ void FinDeCourseHaut(void){
 
 }
 
-void FinDeCourseBas(void){
+void IsrFinDeCourseBas(void){
 	Serial.println("Capteur de fin de course bas atteint ! (Porte fermée)"); //DEBUG
 	Serial.println("FERMEEEEEEEEE !!!!!!");
 	digitalWrite(TEMOIN_MOTEUR_MOUVEMENT,0);
@@ -356,11 +374,6 @@ void FinDeCourseBas(void){
 
 }
 int getMoyenne(void){
-	if (nb_mesures>TAILLE_TABLEAU_MOY){ //Si on a assez d'étantillons
-				moyenne = moyenneTableau(tableau_intensite); //On calcul la moyenne
-				Serial.println(moyenne);
-
-	}
 	return moyenne;
 }
 void getHoursRTC(void){
@@ -384,7 +397,7 @@ void getHoursRTC(void){
 	  Serial.println(t.sec, DEC);
 
 	  Serial.print("Etat : ");
-	  if (Jour(moyenne)){
+	  if (GetDayState(moyenne)){
 		  Serial.println("Jour");
 	  }else{
 		  Serial.println("Nuit");
@@ -402,7 +415,7 @@ void getHoursRTC(void){
  *
  */
 
-int Jour(int moyenne){
+int GetDayState(int moyenne){
 	if (moyenne > SEUIL_CAPTEUR_PHOTORESISTANCE){
 		return 0;
 	}
